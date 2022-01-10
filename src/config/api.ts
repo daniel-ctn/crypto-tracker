@@ -1,5 +1,6 @@
 import { instance } from './axiosInstance'
 import qs from 'query-string'
+import { Coin } from 'types/Coin'
 
 export const getListCoin = async () => {
   const res = await instance.get('/list')
@@ -27,7 +28,7 @@ export const getHistoricalChart = async (
   return res.data
 }
 
-export const getTrendingCoin = async (currency: string) => {
+export const getTrendingCoin = async (currency: string): Promise<Coin[]> => {
   const query = qs.stringify({
     vs_currency: currency,
     order: 'gecko_desc',

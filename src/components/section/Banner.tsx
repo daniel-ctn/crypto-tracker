@@ -2,6 +2,7 @@ import { FC, ReactElement } from 'react'
 import { styled } from '@mui/system'
 import { Container, Typography } from '@mui/material'
 
+import Carousel from "./Carousel";
 import bannerImg from 'assests/banner2.jpg'
 
 const BannerWrapper = styled('div')({
@@ -50,6 +51,7 @@ const Banner: FC = (): ReactElement => {
             Get all the Info regarding your favorite Crypto currency
           </Typography>
         </TagLine>
+        <Carousel/>
       </BannerContainer>
     </BannerWrapper>
   )

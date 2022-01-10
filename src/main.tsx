@@ -7,18 +7,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { CryptoContext } from 'context/cryptoContext'
+
+import queryClient from 'config/queryClient'
+import theme from './theme'
+
 import App from './App'
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#fff',
-    },
-    mode: 'dark',
-  },
-})
-
-const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
