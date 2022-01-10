@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
+import { yellow } from '@mui/material/colors';
 
 import { CryptoState, Currency } from "../../context/cryptoContext";
 
@@ -22,9 +23,10 @@ const Header: FC = (): ReactElement => {
           <Typography
             sx={{
               flex: 1,
-              color: 'gold',
+              color: yellow[600],
               fontWeight: 'bold',
               cursor: 'pointer',
+              fontSize: '18px'
             }}
             onClick={() => navigate('/')}
           >

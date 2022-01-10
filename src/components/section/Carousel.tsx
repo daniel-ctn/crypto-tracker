@@ -17,6 +17,7 @@ const Carousel: FC = (): ReactElement => {
       sx={{
         width: '100%',
         height: '240px',
+        marginTop: '30px'
       }}
     >
       <CommonSlider trendingCoins={data}/>
