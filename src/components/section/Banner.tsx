@@ -33,7 +33,7 @@ const Banner: FC = (): ReactElement => {
         <TagLine>
           <Typography
             variant="h2"
-            color={yellow[600]}
+            color={yellow[700]}
             sx={{
               fontWeight: "bold",
               marginBottom: "15px",

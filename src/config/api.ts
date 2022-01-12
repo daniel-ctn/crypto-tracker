@@ -2,13 +2,16 @@ import { instance } from './axiosInstance'
 import qs from 'query-string'
 import { Coin } from 'types/Coin'
 
-export const getListCoin = async () => {
-  const res = await instance.get('/list')
+export const getListCoin = async (currency: string): Promise<Coin[]> => {
+  const query = qs.stringify({
+    vs_currency: currency,
+  })
+  const res = await instance.get(`/markets?${query}`)
 
   return res.data
 }
 
-export const getSingleCoin = async (id: string) => {
+export const getSingleCoin = async (id: string): Promise<Coin> => {
   const res = await instance.get(`/${id}`)
 
   return res.data
@@ -16,9 +19,9 @@ export const getSingleCoin = async (id: string) => {
 
 export const getHistoricalChart = async (
   id: string,
-  days: number = 365,
+  days = 365,
   currency: string
-) => {
+): Promise<Coin[]> => {
   const query = qs.stringify({
     vs_currency: currency,
     days,

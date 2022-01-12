@@ -1,0 +1,95 @@
+import { FC } from 'react'
+import {
+  Box,
+  Container, Paper, Skeleton,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { styled } from '@mui/system'
+import { green, grey, red, yellow } from '@mui/material/colors'
+import millify from 'millify'
+
+import { useListCoin } from 'config/queries'
+
+const TableCellHeader = styled(TableCell)({
+  color: grey[700],
+  fontWeight: 'bold',
+  fontSize: '18px',
+})
+
+const CoinImage = styled('img')({
+  width: '60px',
+  height: '60px'
+})
+
+const CoinTable: FC = () => {
+  const { data, isLoading } = useListCoin('usd')
+
+  return (
+    <Container sx={{ textAlign: 'center' }}>
+      <Typography variant='h4' sx={{ margin: '18px' }}>
+        Crypto Prices by Market Cap
+      </Typography>
+      <TextField
+        label='Search for Crypto Currency'
+        variant='outlined'
+        sx={{
+          marginBottom: '20px',
+          width: '100%',
+        }} />
+      {isLoading && (
+        <Stack spacing={1}>
+          <Skeleton variant='text' />
+          <Skeleton variant='circular' width={40} height={40} />
+          <Skeleton variant='rectangular' width={210} height={118} />
+        </Stack>
+      )}
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label='coin market table'>
+          <TableHead sx={{ backgroundColor: yellow[700] }}>
+            <TableRow>
+              <TableCellHeader>Coin</TableCellHeader>
+              <TableCellHeader align='right'>Price</TableCellHeader>
+              <TableCellHeader align='right'> 24h Change </TableCellHeader>
+              <TableCellHeader align='right'> Market Cap </TableCellHeader>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data?.map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component='th' scope='row'>
+                  <Box sx={{ display: 'flex', height: '90px', alignItems: 'center' }}>
+                    <CoinImage src={row.image} alt={row.name} />
+                    <Box
+                      sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '25px' }}>
+                      <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
+                      <Typography variant='h6' color={grey[400]} fontWeight="normal">{row.name}</Typography>
+                    </Box>
+                  </Box>
+                </TableCell>
+                <TableCell align='right'>${millify(row.current_price, {precision: 3})}</TableCell>
+                <TableCell align='right' sx={{ color: row.price_change_percentage_24h > 0 ? green[400] : red[400] }}>
+                  {row.price_change_percentage_24h > 0 && '+'}
+                  {row.price_change_percentage_24h.toFixed(2)}%
+                </TableCell>
+                <TableCell align='right'>${millify(row.market_cap || 0, {precision: 3})}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
+  )
+}
+
+export default CoinTable

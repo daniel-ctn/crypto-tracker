@@ -36,7 +36,7 @@ const SymbolText = styled('h3')({
 })
 
 const ChangePriceText = styled('h3', {
-  shouldForwardProp: () => true,
+  shouldForwardProp: (prop) => prop !== 'increase',
 })<{ increase: boolean }>(({ increase }) => ({
   fontSize: '14px',
   margin: '20px 0 -15px 25px',
@@ -44,9 +44,7 @@ const ChangePriceText = styled('h3', {
 }))
 
 const CommonSlider: FC<CommonSliderProps> = ({ trendingCoins }) => {
-  trendingCoins?.map(coin => {
-    console.log(coin.price_change_percentage_24h > 0)
-  })
+
   return (
     <Slider {...settings}>
       {trendingCoins?.map(coin => (
