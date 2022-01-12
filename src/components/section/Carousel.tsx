@@ -10,8 +10,6 @@ const Carousel: FC = (): ReactElement => {
   const { currency } = CryptoState()
   const { data } = useTrendingCoin(currency)
 
-  console.log({data});
-
   return (
     <Box
       sx={{

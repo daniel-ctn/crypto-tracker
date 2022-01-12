@@ -8,27 +8,27 @@ import {
 import { Coin } from 'types/Coin'
 
 export const useListCoin = (): UseQueryResult => {
-  return useQuery<any[], Error>('coin-list', getListCoin)
+  return useQuery<Coin[], Error>('coin-list', getListCoin)
 }
 
 export const useSingleCoin = (id: string): UseQueryResult => {
-  return useQuery<any[], Error>(['coin', id], () => {
+  return useQuery<Coin[], Error>(['coin', id], () => {
     return getSingleCoin(id)
   })
 }
 
 export const useHistoricalCoin = (
   id: string,
-  day: number = 365,
-  currency: string
+  day = 365,
+  currency: string,
 ): UseQueryResult => {
-  return useQuery<any[], Error>('historical', () => {
+  return useQuery<Coin[], Error>('historical', () => {
     return getHistoricalChart(id, day, currency)
   })
 }
 
 export const useTrendingCoin = (
-  currency: string
+  currency: string,
 ): UseQueryResult<Coin[], Error> => {
   return useQuery<Coin[], Error>(
     'trending',
@@ -37,6 +37,6 @@ export const useTrendingCoin = (
     },
     {
       enabled: !!currency,
-    }
+    },
   )
 }
