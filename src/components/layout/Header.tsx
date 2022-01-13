@@ -1,25 +1,56 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   AppBar,
   Container,
   MenuItem,
-  Select,
+  Select, SelectChangeEvent,
   Toolbar,
   Typography,
 } from '@mui/material'
-import { yellow } from '@mui/material/colors'
 
 import { CryptoState, Currency } from 'context/cryptoContext'
+import { ThemeState } from 'context/themeContext'
+import { blueTheme, greenTheme, pinkTheme, purpleTheme, yellowTheme } from 'theme'
 
 const Header: FC = () => {
   const navigate = useNavigate()
   const { currency, setCurrency } = CryptoState()
+  const { theme, setTheme } = ThemeState()
+  const [themeState, setThemeState] = useState('blue')
 
   const getSymbol = (value: string) => {
-    if(value === 'usd') return '$'
-    if(value === 'vnd') return 'VND '
+    if (value === 'usd') return '$'
+    if (value === 'vnd') return 'VND '
     return '$'
+  }
+
+  const handleChangeTheme = (e: SelectChangeEvent) => {
+    const value = e.target.value
+    if (setTheme) {
+      switch (value) {
+        case 'blue':
+          setThemeState('blue')
+          setTheme(blueTheme)
+          break
+        case 'yellow':
+          setThemeState('yellow')
+          setTheme(yellowTheme)
+          break
+        case 'pink':
+          setThemeState('pink')
+          setTheme(pinkTheme)
+          break
+        case 'green':
+          setThemeState('green')
+          setTheme(greenTheme)
+          break
+        case 'purple':
+          setThemeState('purple')
+          setTheme(purpleTheme)
+          break
+      }
+    }
   }
 
   return (
@@ -29,7 +60,7 @@ const Header: FC = () => {
           <Typography
             sx={{
               flex: 1,
-              color: yellow[700],
+              color: 'primary.main',
               fontWeight: 'bold',
               cursor: 'pointer',
               fontSize: '18px',
@@ -40,6 +71,25 @@ const Header: FC = () => {
           </Typography>
           <Select
             variant='outlined'
+            labelId='theme'
+            id='theme'
+            value={themeState}
+            label='Age'
+            onChange={handleChangeTheme}
+            sx={{
+              width: 100,
+              height: 40,
+              marginLeft: 15,
+            }}
+          >
+            <MenuItem value='blue'>Blue</MenuItem>
+            <MenuItem value='yellow'>Yellow</MenuItem>
+            <MenuItem value='pink'>Pink</MenuItem>
+            <MenuItem value='green'>Green</MenuItem>
+            <MenuItem value='purple'>Purple</MenuItem>
+          </Select>
+          <Select
+            variant='outlined'
             labelId='crypto-type'
             id='crypto-type'
             value={currency.value}
@@ -48,7 +98,7 @@ const Header: FC = () => {
               const value = e.target.value as string
               const currency: Currency = {
                 value,
-                symbol: getSymbol(value)
+                symbol: getSymbol(value),
               }
               setCurrency && setCurrency(currency)
             }}

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
   Box,
   Container, Paper, Skeleton,
@@ -13,14 +13,15 @@ import {
   Typography,
 } from '@mui/material'
 import { styled } from '@mui/system'
-import { green, grey, red, yellow } from '@mui/material/colors'
+import { green, grey, red } from '@mui/material/colors'
 import currencyjs from 'currency.js'
 
 import { useListCoin } from 'config/queries'
 import { CryptoState } from 'context/cryptoContext'
+import { Coin } from 'types/Coin'
 
 const TableCellHeader = styled(TableCell)({
-  color: grey[700],
+  color: grey[300],
   fontWeight: 'bold',
   fontSize: '18px',
 })
@@ -33,8 +34,18 @@ const CoinImage = styled('img')({
 const CoinTable: FC = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [search, setSearch] = useState('')
+  const [filteredData, setFilteredData] = useState<Coin[] | undefined>([])
   const { currency } = CryptoState()
   const { data, isLoading } = useListCoin(currency.value)
+
+
+  useEffect(() => {
+    if (data && data?.length > 0) {
+      const dataFilter = data?.filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
+      setFilteredData(dataFilter)
+    }
+  }, [data, data?.length, search])
 
   const formatCurrency = (value: number, symbol: string) => currencyjs(value, {
     symbol,
@@ -63,7 +74,9 @@ const CoinTable: FC = () => {
         sx={{
           marginBottom: '20px',
           width: '100%',
-        }} />
+        }}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <TableContainer component={Paper}>
         {isLoading ? (
           <Stack spacing={1}>
@@ -73,7 +86,7 @@ const CoinTable: FC = () => {
           </Stack>
         ) : (
           <Table sx={{ minWidth: 650 }} aria-label='coin market table'>
-            <TableHead sx={{ backgroundColor: yellow[700] }}>
+            <TableHead sx={{ backgroundColor: 'primary.main' }}>
               <TableRow>
                 <TableCellHeader>Coin</TableCellHeader>
                 <TableCellHeader align='right'>Price</TableCellHeader>
@@ -82,7 +95,7 @@ const CoinTable: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+              {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow
                   key={row.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -112,11 +125,13 @@ const CoinTable: FC = () => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component='div'
-        count={data?.length || 0}
+        count={filteredData?.length || 0}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        showFirstButton={true}
+        showLastButton={true}
       />
     </Container>
   )

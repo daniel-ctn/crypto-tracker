@@ -6,9 +6,15 @@ import {
   getTrendingCoin,
 } from './api'
 import { Coin } from 'types/Coin'
+import queryClient from './queryClient'
 
 export const useListCoin = (currency: string): UseQueryResult<Coin[], Error> => {
-  return useQuery<Coin[], Error>(['coin-list', currency], () => getListCoin(currency))
+  return useQuery<Coin[], Error>(['coin-list', currency],
+    () => getListCoin(currency), {
+      onSuccess: () =>
+        queryClient.prefetchQuery(['coin-list', 'usd'],
+          () => getListCoin('usd')),
+    })
 }
 
 export const useSingleCoin = (id: string): UseQueryResult<Coin, Error> => {
