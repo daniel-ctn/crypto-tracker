@@ -21,8 +21,7 @@ const settings = {
   slidesToShow: 5,
   slidesToScroll: 1,
   arrows: false,
-  centerMode: true,
-  pauseOnHover: true,
+  pauseOnHover: false,
 }
 
 const Image = styled('img')({

@@ -20,7 +20,7 @@ interface CryptoContextInterface {
 const initialContextValue: CryptoContextInterface = {
   currency: {
     value: 'vnd',
-    symbol: 'VND',
+    symbol: 'VND ',
   },
 }
 
