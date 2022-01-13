@@ -8,7 +8,7 @@ import {
 import { Coin } from 'types/Coin'
 
 export const useListCoin = (currency: string): UseQueryResult<Coin[], Error> => {
-  return useQuery<Coin[], Error>('coin-list', () => getListCoin(currency))
+  return useQuery<Coin[], Error>(['coin-list', currency], () => getListCoin(currency))
 }
 
 export const useSingleCoin = (id: string): UseQueryResult<Coin, Error> => {

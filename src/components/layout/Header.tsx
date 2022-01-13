@@ -16,6 +16,12 @@ const Header: FC = () => {
   const navigate = useNavigate()
   const { currency, setCurrency } = CryptoState()
 
+  const getSymbol = (value: string) => {
+    if(value === 'usd') return '$'
+    if(value === 'vnd') return 'VND '
+    return '$'
+  }
+
   return (
     <AppBar position='static' color='transparent'>
       <Container maxWidth='lg'>
@@ -36,11 +42,15 @@ const Header: FC = () => {
             variant='outlined'
             labelId='crypto-type'
             id='crypto-type'
-            value={currency}
+            value={currency.value}
             label='Age'
             onChange={e => {
-              const value: Currency = e.target.value
-              setCurrency && setCurrency(value)
+              const value = e.target.value as string
+              const currency: Currency = {
+                value,
+                symbol: getSymbol(value)
+              }
+              setCurrency && setCurrency(currency)
             }}
             sx={{
               width: 100,
@@ -48,8 +58,8 @@ const Header: FC = () => {
               marginLeft: 15,
             }}
           >
-            <MenuItem value='USD'>USD</MenuItem>
-            <MenuItem value='VND'>VND</MenuItem>
+            <MenuItem value='usd'>USD</MenuItem>
+            <MenuItem value='vnd'>VND</MenuItem>
           </Select>
         </Toolbar>
       </Container>

@@ -8,7 +8,7 @@ import CommonSlider from "../common/Slider";
 
 const Carousel: FC = (): ReactElement => {
   const { currency } = CryptoState()
-  const { data } = useTrendingCoin(currency)
+  const { data } = useTrendingCoin('usd')
 
   return (
     <Box

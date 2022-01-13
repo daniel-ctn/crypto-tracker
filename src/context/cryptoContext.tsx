@@ -7,7 +7,10 @@ import {
   useState,
 } from 'react'
 
-export type Currency = string
+export interface Currency {
+  value: string
+  symbol: string
+}
 
 interface CryptoContextInterface {
   currency: Currency;
@@ -15,13 +18,16 @@ interface CryptoContextInterface {
 }
 
 const initialContextValue: CryptoContextInterface = {
-  currency: 'VND',
+  currency: {
+    value: 'vnd',
+    symbol: 'VND',
+  },
 }
 
 const CryptoCtx = createContext<CryptoContextInterface>(initialContextValue)
 
 export const CryptoContext: FC = ({ children }) => {
-  const [currency, setCurrency] = useState<Currency>('VND')
+  const [currency, setCurrency] = useState<Currency>(initialContextValue.currency)
 
   return (
     <CryptoCtx.Provider value={{ currency, setCurrency }}>

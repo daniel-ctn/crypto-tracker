@@ -14,9 +14,10 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/system'
 import { green, grey, red, yellow } from '@mui/material/colors'
-import millify from 'millify'
+import currencyjs from 'currency.js'
 
 import { useListCoin } from 'config/queries'
+import { CryptoState } from 'context/cryptoContext'
 
 const TableCellHeader = styled(TableCell)({
   color: grey[700],
@@ -26,11 +27,19 @@ const TableCellHeader = styled(TableCell)({
 
 const CoinImage = styled('img')({
   width: '60px',
-  height: '60px'
+  height: '60px',
 })
 
 const CoinTable: FC = () => {
-  const { data, isLoading } = useListCoin('usd')
+  const { currency } = CryptoState()
+  const { data, isLoading } = useListCoin(currency.value)
+
+  const formatCurrency = (value: number, symbol: string) => currencyjs(value, {
+    symbol,
+    separator: '.',
+    decimal: ',',
+    precision: 0,
+  })
 
   return (
     <Container sx={{ textAlign: 'center' }}>
@@ -73,16 +82,16 @@ const CoinTable: FC = () => {
                     <Box
                       sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '25px' }}>
                       <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
-                      <Typography variant='h6' color={grey[400]} fontWeight="normal">{row.name}</Typography>
+                      <Typography variant='h6' color={grey[400]} fontWeight='normal'>{row.name}</Typography>
                     </Box>
                   </Box>
                 </TableCell>
-                <TableCell align='right'>${millify(row.current_price, {precision: 3})}</TableCell>
+                <TableCell align='right'>{formatCurrency(row.current_price, currency.symbol).format()}</TableCell>
                 <TableCell align='right' sx={{ color: row.price_change_percentage_24h > 0 ? green[400] : red[400] }}>
                   {row.price_change_percentage_24h > 0 && '+'}
                   {row.price_change_percentage_24h.toFixed(2)}%
                 </TableCell>
-                <TableCell align='right'>${millify(row.market_cap || 0, {precision: 3})}</TableCell>
+                <TableCell align='right'>{formatCurrency(row.market_cap || 0, currency.symbol).format()}</TableCell>
               </TableRow>
             ))}
           </TableBody>
