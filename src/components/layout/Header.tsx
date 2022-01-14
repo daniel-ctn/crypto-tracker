@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 import { CryptoState, Currency } from 'context/cryptoContext'
 import { ThemeState } from 'context/themeContext'
@@ -15,6 +16,7 @@ import { blueTheme, greenTheme, pinkTheme, purpleTheme, yellowTheme } from 'them
 
 const Header: FC = () => {
   const navigate = useNavigate()
+  const {i18n} = useTranslation()
   const { currency, setCurrency } = CryptoState()
   const { theme, setTheme } = ThemeState()
   const [themeState, setThemeState] = useState('blue')
@@ -101,6 +103,8 @@ const Header: FC = () => {
                 symbol: getSymbol(value),
               }
               setCurrency && setCurrency(currency)
+              if(value === 'usd') i18n.changeLanguage('en')
+              if(value === 'vnd') i18n.changeLanguage('vi')
             }}
             sx={{
               width: 100,

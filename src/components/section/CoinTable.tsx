@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/system'
 import { green, grey, red } from '@mui/material/colors'
+import { useTranslation } from 'react-i18next'
 
 import { useListCoin } from 'config/queries'
 import { CryptoState } from 'context/cryptoContext'
@@ -38,6 +39,7 @@ const CoinTable: FC = () => {
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState<Coin[] | undefined>([])
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { currency } = CryptoState()
   const { data, isLoading } = useListCoin(currency.value)
 
@@ -61,7 +63,7 @@ const CoinTable: FC = () => {
   return (
     <Container sx={{ textAlign: 'center' }}>
       <Typography variant='h4' sx={{ margin: '18px' }}>
-        Crypto Prices by Market Cap
+        {t('tableTitle')}
       </Typography>
       <TextField
         label='Search for Crypto Currency'
