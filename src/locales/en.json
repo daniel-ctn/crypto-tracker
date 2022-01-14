@@ -1,4 +1,11 @@
 {
   "desc" : "Get all the Info regarding your favorite Crypto currency",
-  "tableTitle": "Crypto Prices by Market Cap"
+  "tableTitle": "Crypto Prices by Market Cap",
+  "searchText": "Search for Crypto Currency",
+  "tableHeader": {
+    "c1": "Coin",
+    "c2": "Price",
+    "c3": "24h Change",
+    "c4": "Market Cap"
+  }
 }

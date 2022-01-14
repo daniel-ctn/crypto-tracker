@@ -12,8 +12,8 @@ export const useListCoin = (currency: string): UseQueryResult<Coin[], Error> => 
   return useQuery<Coin[], Error>(['coin-list', currency],
     () => getListCoin(currency), {
       onSuccess: () =>
-        queryClient.prefetchQuery(['coin-list', 'usd'],
-          () => getListCoin('usd')),
+        queryClient.prefetchQuery(['coin-list', 'vnd'],
+          () => getListCoin('vnd')),
     })
 }
 

@@ -1,4 +1,11 @@
 {
-  "desc": "Chào cậu",
-  "tableTitle": "Giá tiền điện tử từ Market Cap"
+  "desc": "Cập nhật thông tin nhanh nhất về tiền điện tử",
+  "tableTitle": "Giá tiền điện tử từ Market Cap",
+  "searchText": "Tìm kiếm tên tiền điện tử",
+  "tableHeader": {
+    "c1": "Tiền điện tử",
+    "c2": "Giá",
+    "c3": "Thay đổi trong 24h",
+    "c4": "Vốn hóa thị trường"
+  }
 }

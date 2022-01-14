@@ -66,7 +66,7 @@ const CoinTable: FC = () => {
         {t('tableTitle')}
       </Typography>
       <TextField
-        label='Search for Crypto Currency'
+        label={t('searchText')}
         variant='outlined'
         sx={{
           marginBottom: '20px',
@@ -85,10 +85,10 @@ const CoinTable: FC = () => {
           <Table sx={{ minWidth: 650 }} aria-label='coin market table'>
             <TableHead sx={{ backgroundColor: 'primary.main' }}>
               <TableRow>
-                <TableCellHeader>Coin</TableCellHeader>
-                <TableCellHeader align='right'>Price</TableCellHeader>
-                <TableCellHeader align='right'> 24h Change </TableCellHeader>
-                <TableCellHeader align='right'> Market Cap </TableCellHeader>
+                <TableCellHeader>{t('tableHeader.c1')}</TableCellHeader>
+                <TableCellHeader align='right'>{t('tableHeader.c2')}</TableCellHeader>
+                <TableCellHeader align='right'> {t('tableHeader.c3')} </TableCellHeader>
+                <TableCellHeader align='right'>{t('tableHeader.c4')} </TableCellHeader>
               </TableRow>
             </TableHead>
             <TableBody>

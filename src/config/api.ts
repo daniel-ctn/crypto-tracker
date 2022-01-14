@@ -1,5 +1,5 @@
-import { instance } from './axiosInstance'
 import qs from 'query-string'
+import { instance } from './axiosInstance'
 import { Coin, SingleCoin } from 'types/Coin'
 
 export const getListCoin = async (currency: string): Promise<Coin[]> => {
