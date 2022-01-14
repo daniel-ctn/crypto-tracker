@@ -19,6 +19,7 @@ export interface SingleCoin {
   symbol: string;
   description?: {
     en: string
+    vi: string
   },
   market_cap_rank: number
   market_data: {

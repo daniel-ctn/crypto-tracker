@@ -44,7 +44,8 @@ const CoinPage: FC = () => {
           <Image src={data?.image?.large} />
           <Typography variant='h3' fontWeight='bold' marginBottom='20px'>{data?.name}</Typography>
           <Typography variant='subtitle1' marginBottom='20px'>
-            {data?.description?.en.substr(0, 200)}...
+            {currency.value === 'usd' && data?.description?.en.substr(0, 200).concat('...')}
+            {currency.value === 'vnd' && data?.description?.vi.substr(0, 200).concat('...')}
           </Typography>
           <Typography variant='h5' marginBottom='15px'>
             <strong>Rank: </strong>{data?.market_cap_rank}
