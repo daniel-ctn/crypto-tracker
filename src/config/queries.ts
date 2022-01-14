@@ -5,7 +5,7 @@ import {
   getSingleCoin,
   getTrendingCoin,
 } from './api'
-import { Coin } from 'types/Coin'
+import { Coin, SingleCoin } from 'types/Coin'
 import queryClient from './queryClient'
 
 export const useListCoin = (currency: string): UseQueryResult<Coin[], Error> => {
@@ -17,10 +17,10 @@ export const useListCoin = (currency: string): UseQueryResult<Coin[], Error> => 
     })
 }
 
-export const useSingleCoin = (id: string): UseQueryResult<Coin, Error> => {
-  return useQuery<Coin, Error>(['coin', id], () => {
-    return getSingleCoin(id)
-  })
+export const useSingleCoin = (id: string | undefined): UseQueryResult<SingleCoin, Error> => {
+  return useQuery<SingleCoin, Error>(['coin', id], () => {
+      return getSingleCoin(id)
+  }, {enabled: !!id})
 }
 
 export const useHistoricalCoin = (

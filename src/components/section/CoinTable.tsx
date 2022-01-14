@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Box,
   Container, Paper, Skeleton,
@@ -14,10 +15,10 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/system'
 import { green, grey, red } from '@mui/material/colors'
-import currencyjs from 'currency.js'
 
 import { useListCoin } from 'config/queries'
 import { CryptoState } from 'context/cryptoContext'
+import { formatCurrency } from 'utils/currency'
 import { Coin } from 'types/Coin'
 
 const TableCellHeader = styled(TableCell)({
@@ -36,6 +37,7 @@ const CoinTable: FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [search, setSearch] = useState('')
   const [filteredData, setFilteredData] = useState<Coin[] | undefined>([])
+  const navigate = useNavigate()
   const { currency } = CryptoState()
   const { data, isLoading } = useListCoin(currency.value)
 
@@ -46,13 +48,6 @@ const CoinTable: FC = () => {
       setFilteredData(dataFilter)
     }
   }, [data, data?.length, search])
-
-  const formatCurrency = (value: number, symbol: string) => currencyjs(value, {
-    symbol,
-    separator: '.',
-    decimal: ',',
-    precision: 0,
-  })
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
@@ -98,7 +93,8 @@ const CoinTable: FC = () => {
               {filteredData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow
                   key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
+                  onClick={() => navigate(`coin/${row.id}`)}
                 >
                   <TableCell component='th' scope='row'>
                     <Box sx={{ display: 'flex', height: '90px', alignItems: 'center' }}>

@@ -1,6 +1,6 @@
 import { instance } from './axiosInstance'
 import qs from 'query-string'
-import { Coin } from 'types/Coin'
+import { Coin, SingleCoin } from 'types/Coin'
 
 export const getListCoin = async (currency: string): Promise<Coin[]> => {
   const query = qs.stringify({
@@ -11,7 +11,7 @@ export const getListCoin = async (currency: string): Promise<Coin[]> => {
   return res.data
 }
 
-export const getSingleCoin = async (id: string): Promise<Coin> => {
+export const getSingleCoin = async (id: string | undefined): Promise<SingleCoin> => {
   const res = await instance.get(`/${id}`)
 
   return res.data
