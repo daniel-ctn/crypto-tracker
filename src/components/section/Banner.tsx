@@ -36,21 +36,17 @@ const Banner: FC = (): ReactElement => {
           <Typography
             variant='h2'
             color='primary.main'
-            sx={{
-              fontWeight: 'bold',
-              marginBottom: '15px',
-              letterSpacing: '2px',
-            }}
+            fontWeight='bold'
+            mb='15px'
+            letterSpacing='2px'
           >
             Crypto Tracker
           </Typography>
           <Typography
             variant='subtitle2'
             gutterBottom
-            sx={{
-              color: 'darkgrey',
-              textTransform: 'capitalize',
-            }}
+            color='darkgrey'
+            sx={{ textTransform: 'capitalize' }}
           >
             {t('desc')}
           </Typography>

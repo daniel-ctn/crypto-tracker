@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { Box, Grid, Typography } from '@mui/material'
-import { green, red } from '@mui/material/colors'
+import { green, grey, red } from '@mui/material/colors'
 import { styled } from '@mui/system'
 
 import { useSingleCoin } from 'config/queries'
@@ -33,24 +33,17 @@ const CoinPage: FC = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={4}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginTop: '25px',
-          padding: '0 30px',
-          borderRight: '2px solid grey',
-        }}>
+        <Box display='flex' flexDirection='column' alignItems='center' mt={4} px={4} borderRight={2}>
           <Image src={data?.image?.large} />
-          <Typography variant='h3' fontWeight='bold' marginBottom='20px'>{data?.name}</Typography>
-          <Typography variant='subtitle1' marginBottom='20px'>
+          <Typography variant='h3' fontWeight='bold' mb={4}>{data?.name}</Typography>
+          <Typography variant='subtitle1' mb={3}>
             {currency.value === 'usd' && data?.description?.en.substr(0, 200).concat('...')}
             {currency.value === 'vnd' && data?.description?.vi.substr(0, 200).concat('...')}
           </Typography>
-          <Typography variant='h5' marginBottom='15px'>
+          <Typography variant='h5' mb={2}>
             <strong>Rank: </strong>{data?.market_cap_rank}
           </Typography>
-          <Typography variant='h5' marginBottom='15px'>
+          <Typography variant='h5' mb={2}>
             <strong>Current price: </strong>{formatCurrency(getPrice() || 0, currency.symbol).format()}
           </Typography>
           <Typography variant='h5'>

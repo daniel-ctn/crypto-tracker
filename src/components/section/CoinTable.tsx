@@ -62,18 +62,17 @@ const CoinTable: FC = () => {
 
   return (
     <Container sx={{ textAlign: 'center' }}>
-      <Typography variant='h4' sx={{ margin: '18px' }}>
+      <Typography variant='h4' m={3}>
         {t('tableTitle')}
       </Typography>
-      <TextField
-        label={t('searchText')}
-        variant='outlined'
-        sx={{
-          marginBottom: '20px',
-          width: '100%',
-        }}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <Box mb={3}>
+        <TextField
+          label={t('searchText')}
+          variant='outlined'
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{width: '100%'}}
+        />
+      </Box>
       <TableContainer component={Paper}>
         {isLoading ? (
           <Stack spacing={1}>
@@ -101,8 +100,7 @@ const CoinTable: FC = () => {
                   <TableCell component='th' scope='row'>
                     <Box sx={{ display: 'flex', height: '90px', alignItems: 'center' }}>
                       <CoinImage src={row.image} alt={row.name} />
-                      <Box
-                        sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '25px' }}>
+                      <Box display='flex' flexDirection='column' justifyContent='center' ml={3}>
                         <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
                         <Typography variant='h6' color={grey[400]} fontWeight='normal'>{row.name}</Typography>
                       </Box>
