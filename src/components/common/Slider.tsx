@@ -73,7 +73,7 @@ const CommonSlider: FC<CommonSliderProps> = ({ trendingCoins }) => {
             padding: '20px',
           }}
         >
-          <Link to={`/coins/${coin.id}`}>
+          <Link to={`/coin/${coin.id}`}>
             <Image src={coin.image} alt={coin.name} />
           </Link>
           <SymbolText>{coin.symbol.toLocaleUpperCase()}</SymbolText>

@@ -1,6 +1,6 @@
 import qs from 'query-string'
-import { instance } from './axiosInstance'
-import { Coin, SingleCoin } from 'types/Coin'
+import { instance } from 'config/axiosInstance'
+import { Coin, CoinData, SingleCoin } from 'types/Coin'
 
 export const getListCoin = async (currency: string): Promise<Coin[]> => {
   const query = qs.stringify({
@@ -18,10 +18,10 @@ export const getSingleCoin = async (id: string | undefined): Promise<SingleCoin>
 }
 
 export const getHistoricalChart = async (
-  id: string,
-  days = 365,
+  id: string | undefined,
+  days: number,
   currency: string
-): Promise<Coin[]> => {
+): Promise<CoinData> => {
   const query = qs.stringify({
     vs_currency: currency,
     days,

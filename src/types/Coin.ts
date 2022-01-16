@@ -30,3 +30,7 @@ export interface SingleCoin {
     price_change_percentage_24h: number;
   }
 }
+
+export interface CoinData {
+  prices: Array<Array<number>>
+}

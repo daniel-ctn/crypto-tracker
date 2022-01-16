@@ -71,7 +71,7 @@ const Header: FC = () => {
             labelId='theme'
             id='theme'
             value={themeState}
-            label='Age'
+            label='Theme'
             onChange={handleChangeTheme}
             sx={{
               width: 100,
@@ -90,7 +90,7 @@ const Header: FC = () => {
             labelId='crypto-type'
             id='crypto-type'
             value={currency.value}
-            label='Age'
+            label='Currency'
             onChange={e => {
               const value = e.target.value as string
               const currency: Currency = {
