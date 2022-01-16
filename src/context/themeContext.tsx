@@ -1,6 +1,6 @@
 import { createContext, Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import { Theme } from '@mui/material'
-import { blueTheme } from '../theme'
+import { blueTheme } from '../config/theme'
 
 interface ThemeContextInterface {
   theme: Theme;

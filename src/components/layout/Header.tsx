@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CryptoState, Currency } from 'context/cryptoContext'
 import { ThemeState } from 'context/themeContext'
-import { blueTheme, greenTheme, pinkTheme, purpleTheme, yellowTheme } from 'theme'
+import { blueTheme, greenTheme, pinkTheme, purpleTheme, orangeTheme } from 'config/theme'
 
 const Header: FC = () => {
   const navigate = useNavigate()
@@ -35,9 +35,9 @@ const Header: FC = () => {
           setThemeState('blue')
           setTheme(blueTheme)
           break
-        case 'yellow':
-          setThemeState('yellow')
-          setTheme(yellowTheme)
+        case 'orange':
+          setThemeState('orange')
+          setTheme(orangeTheme)
           break
         case 'pink':
           setThemeState('pink')
@@ -80,7 +80,7 @@ const Header: FC = () => {
             }}
           >
             <MenuItem value='blue'>Blue</MenuItem>
-            <MenuItem value='yellow'>Yellow</MenuItem>
+            <MenuItem value='orange'>Orange</MenuItem>
             <MenuItem value='pink'>Pink</MenuItem>
             <MenuItem value='green'>Green</MenuItem>
             <MenuItem value='purple'>Purple</MenuItem>

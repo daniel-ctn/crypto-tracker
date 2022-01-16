@@ -1,19 +1,19 @@
 import { createTheme } from "@mui/material";
-import { blue, green, pink, purple, yellow } from '@mui/material/colors'
+import { amber, blue, deepOrange, green, indigo, orange, pink, purple, teal } from '@mui/material/colors'
 
 export const blueTheme = createTheme({
   palette: {
     primary: {
-      main: blue[700],
+      main: indigo[500],
     },
     mode: 'dark',
   },
 })
 
-export const yellowTheme = createTheme({
+export const orangeTheme = createTheme({
   palette: {
     primary: {
-      main: yellow[800],
+      main: deepOrange[900],
     },
     mode: 'dark',
   },
@@ -22,7 +22,7 @@ export const yellowTheme = createTheme({
 export const pinkTheme = createTheme({
   palette: {
     primary: {
-      main: pink[700],
+      main: pink[800],
     },
     mode: 'dark',
   },
@@ -31,7 +31,7 @@ export const pinkTheme = createTheme({
 export const greenTheme = createTheme({
   palette: {
     primary: {
-      main: green[700],
+      main: teal[700],
     },
     mode: 'dark',
   },
@@ -40,7 +40,7 @@ export const greenTheme = createTheme({
 export const purpleTheme = createTheme({
   palette: {
     primary: {
-      main: purple[600],
+      main: purple[700],
     },
     mode: 'dark',
   },
