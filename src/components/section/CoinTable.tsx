@@ -98,7 +98,7 @@ const CoinTable: FC = () => {
                   onClick={() => navigate(`coin/${row.id}`)}
                 >
                   <TableCell component='th' scope='row'>
-                    <Box sx={{ display: 'flex', height: '90px', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', height: '84px', alignItems: 'center' }}>
                       <CoinImage src={row.image} alt={row.name} />
                       <Box display='flex' flexDirection='column' justifyContent='center' ml={3}>
                         <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
