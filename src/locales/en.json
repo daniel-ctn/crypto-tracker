@@ -7,5 +7,9 @@
     "c2": "Price",
     "c3": "24h Change",
     "c4": "Market Cap"
-  }
+  },
+  "tooltipDetail": "Click to see detail info",
+  "detail.rank": "Rank: ",
+  "detail.price": "Current Price: ",
+  "detail.change": "Change 24h: "
 }

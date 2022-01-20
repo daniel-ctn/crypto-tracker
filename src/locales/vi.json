@@ -7,5 +7,9 @@
     "c2": "Giá",
     "c3": "Thay đổi trong 24h",
     "c4": "Vốn hóa thị trường"
-  }
+  },
+  "tooltipDetail": "Bấm để xem chi tiết",
+  "detail.rank": "Xếp hạng: ",
+  "detail.price": "Giá hiện tại: ",
+  "detail.change": "Thay đổi trong 24h: "
 }

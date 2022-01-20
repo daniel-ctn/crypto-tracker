@@ -10,6 +10,7 @@ import { formatCurrency } from 'utils/currency'
 import { CryptoState } from 'context/cryptoContext'
 
 import CoinInfo from 'components/section/CoinInfo'
+import { useTranslation } from 'react-i18next'
 
 const Image = styled('img')({
   width: '40%',
@@ -18,6 +19,7 @@ const Image = styled('img')({
 
 const CoinPage: FC = () => {
   const { id } = useParams()
+  const { t } = useTranslation()
   const { data, isLoading } = useSingleCoin(id)
   const { currency } = CryptoState()
 
@@ -61,15 +63,15 @@ const CoinPage: FC = () => {
               )}
             </>
             <Typography variant='h5' mb={2}>
-              <strong>Rank: </strong>
+              <strong>{t('detail.rank')}</strong>
               {data?.market_cap_rank}
             </Typography>
             <Typography variant='h5' mb={2}>
-              <strong>Current price: </strong>
+              <strong>{t('detail.price')}</strong>
               {formatCurrency(getPrice() || 0, currency.symbol).format()}
             </Typography>
             <Typography variant='h5'>
-              <strong>Change 24h: </strong>
+              <strong>{t('detail.change')}</strong>
               <span
                 style={{ color: change && change > 0 ? green[400] : red[400] }}
               >
