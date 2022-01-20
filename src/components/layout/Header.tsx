@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   AppBar, Button,
@@ -13,7 +13,8 @@ import { useTranslation } from 'react-i18next'
 import { CryptoState, Currency } from 'context/cryptoContext'
 import { ThemeState } from 'context/themeContext'
 import { blueTheme, greenTheme, pinkTheme, purpleTheme, orangeTheme } from 'config/theme'
-import AuthModal from '../modal/AuthModal'
+
+import AuthModal from 'components/modal/AuthModal'
 
 const Header: FC = () => {
   const navigate = useNavigate()
@@ -23,42 +24,45 @@ const Header: FC = () => {
   const [themeState, setThemeState] = useState('blue')
   const [open, setOpen] = useState(false)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpen = useCallback(() => setOpen(true), [setOpen])
+  const handleClose = useCallback(() => setOpen(false), [setOpen])
 
-  const getSymbol = (value: string) => {
-    if (value === 'usd') return '$'
-    if (value === 'vnd') return 'VND '
-    return '$'
-  }
+  const getSymbol = useCallback((value: string) => {
+      if (value === 'usd') return '$'
+      if (value === 'vnd') return 'VND '
+      return '$'
+    }, [],
+  )
 
-  const handleChangeTheme = (e: SelectChangeEvent) => {
-    const value = e.target.value
-    if (setTheme) {
-      switch (value) {
-        case 'blue':
-          setThemeState('blue')
-          setTheme(blueTheme)
-          break
-        case 'orange':
-          setThemeState('orange')
-          setTheme(orangeTheme)
-          break
-        case 'pink':
-          setThemeState('pink')
-          setTheme(pinkTheme)
-          break
-        case 'green':
-          setThemeState('green')
-          setTheme(greenTheme)
-          break
-        case 'purple':
-          setThemeState('purple')
-          setTheme(purpleTheme)
-          break
+
+  const handleChangeTheme = useCallback(() => (e: SelectChangeEvent) => {
+      const value = e.target.value
+      if (setTheme) {
+        switch (value) {
+          case 'blue':
+            setThemeState('blue')
+            setTheme(blueTheme)
+            break
+          case 'orange':
+            setThemeState('orange')
+            setTheme(orangeTheme)
+            break
+          case 'pink':
+            setThemeState('pink')
+            setTheme(pinkTheme)
+            break
+          case 'green':
+            setThemeState('green')
+            setTheme(greenTheme)
+            break
+          case 'purple':
+            setThemeState('purple')
+            setTheme(purpleTheme)
+            break
+        }
       }
-    }
-  }
+    }, [setTheme],
+  )
 
   return (
     <>
@@ -82,7 +86,7 @@ const Header: FC = () => {
               sx={{
                 width: 100,
                 height: 40,
-                marginLeft: 5,
+                ml: 3,
               }}
             >
               <MenuItem value='blue'>Blue</MenuItem>
@@ -110,17 +114,17 @@ const Header: FC = () => {
               sx={{
                 width: 100,
                 height: 40,
-                marginLeft: 5,
+                ml: 3,
               }}
             >
               <MenuItem value='usd'>USD</MenuItem>
               <MenuItem value='vnd'>VND</MenuItem>
             </Select>
-            <Button sx={{ px: 4, ml: 5 }} variant='contained' onClick={handleOpen}>Sign In</Button>
+            <Button sx={{ px: 3, ml: 3 }} variant='contained' onClick={handleOpen}>Log In</Button>
           </Toolbar>
         </Container>
       </AppBar>
-      <AuthModal open={open} handleClose={handleClose}/>
+      <AuthModal open={open} handleClose={handleClose} />
     </>
   )
 }

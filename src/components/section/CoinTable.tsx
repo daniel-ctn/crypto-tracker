@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -10,7 +10,7 @@ import {
   TableContainer,
   TableHead, TablePagination,
   TableRow,
-  TextField,
+  TextField, Tooltip,
   Typography,
 } from '@mui/material'
 import { styled } from '@mui/system'
@@ -43,7 +43,6 @@ const CoinTable: FC = () => {
   const { currency } = CryptoState()
   const { data, isLoading } = useListCoin(currency.value)
 
-
   useEffect(() => {
     if (data && data?.length > 0) {
       const dataFilter = data?.filter(d => d.name.toLowerCase().includes(search.toLowerCase()))
@@ -51,14 +50,16 @@ const CoinTable: FC = () => {
     }
   }, [data, data?.length, search])
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage)
-  }
+  const handleChangePage = useCallback((event: unknown, newPage: number) => {
+      setPage(newPage)
+    }, [setPage],
+  )
 
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
+  const handleChangeRowsPerPage = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(parseInt(event.target.value, 10))
+      setPage(0)
+    }, [setRowsPerPage, setPage],
+  )
 
   return (
     <Container sx={{ textAlign: 'center' }}>
@@ -70,7 +71,7 @@ const CoinTable: FC = () => {
           label={t('searchText')}
           variant='outlined'
           onChange={(e) => setSearch(e.target.value)}
-          sx={{width: '100%'}}
+          sx={{ width: '100%' }}
         />
       </Box>
       <TableContainer component={Paper}>
@@ -98,16 +99,19 @@ const CoinTable: FC = () => {
                   onClick={() => navigate(`coin/${row.id}`)}
                 >
                   <TableCell component='th' scope='row'>
-                    <Box sx={{ display: 'flex', height: '84px', alignItems: 'center' }}>
-                      <CoinImage src={row.image} alt={row.name} />
-                      <Box display='flex' flexDirection='column' justifyContent='center' ml={3}>
-                        <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
-                        <Typography variant='h6' color={grey[400]} fontWeight='normal'>{row.name}</Typography>
+                    <Tooltip title='Click to see detail info' placement='top-start'>
+                      <Box sx={{ display: 'flex', height: '84px', alignItems: 'center' }}>
+                        <CoinImage src={row.image} alt={row.name} />
+                        <Box display='flex' flexDirection='column' justifyContent='center' ml={3}>
+                          <Typography variant='h5'>{row.symbol.toUpperCase()}</Typography>
+                          <Typography variant='h6' color={grey[400]} fontWeight='normal'>{row.name}</Typography>
+                        </Box>
                       </Box>
-                    </Box>
+                    </Tooltip>
                   </TableCell>
                   <TableCell align='right'>{formatCurrency(row.current_price, currency.symbol).format()}</TableCell>
-                  <TableCell align='right' sx={{ color: row.price_change_percentage_24h > 0 ? green[400] : red[400] }}>
+                  <TableCell align='right'
+                             sx={{ color: row.price_change_percentage_24h > 0 ? green[400] : red[400] }}>
                     {row.price_change_percentage_24h > 0 && '+'}
                     {row.price_change_percentage_24h.toFixed(2)}%
                   </TableCell>
