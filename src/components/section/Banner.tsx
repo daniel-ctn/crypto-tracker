@@ -4,7 +4,7 @@ import { Container, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import Carousel from './Carousel'
-import bannerImg from 'assests/banner3.jpg'
+import bannerImg from '../../assests/banner3.jpg'
 
 const BannerWrapper = styled('div')({
   backgroundImage: `linear-gradient(to right, rgba(67, 198, 172, 0.2), rgba(25, 22, 84, 0.6)), url(${bannerImg})`,
