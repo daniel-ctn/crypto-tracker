@@ -7,7 +7,7 @@ import parse from 'html-react-parser'
 
 import { useSingleCoin } from 'config/queries'
 import { formatCurrency } from 'utils/currency'
-import { CryptoState } from 'context/cryptoContext'
+import { CryptoContextState } from 'context/cryptoContext'
 
 import CoinInfo from 'components/section/CoinInfo'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +21,7 @@ const CoinPage: FC = () => {
   const { id } = useParams()
   const { t } = useTranslation()
   const { data, isLoading } = useSingleCoin(id)
-  const { currency } = CryptoState()
+  const { currency } = CryptoContextState()
 
   const change = data?.market_data.price_change_percentage_24h
 

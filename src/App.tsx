@@ -4,14 +4,14 @@ import { Box, ThemeProvider } from '@mui/material'
 import Header from 'components/layout/Header'
 import HomePage from 'pages/HomePage'
 import CoinPage from 'pages/CoinPage'
-import { ThemeState } from 'context/themeContext'
+import { ThemeContextState } from 'context/themeContext'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './App.css'
 
 function App() {
-  const { theme } = ThemeState()
+  const { theme } = ThemeContextState()
 
   return (
     <ThemeProvider theme={theme}>

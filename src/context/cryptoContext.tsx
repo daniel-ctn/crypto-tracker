@@ -36,4 +36,4 @@ export const CryptoContext: FC = ({ children }) => {
   )
 }
 
-export const CryptoState = () => useContext(CryptoCtx)
+export const CryptoContextState = () => useContext(CryptoCtx)

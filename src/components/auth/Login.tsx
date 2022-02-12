@@ -1,11 +1,8 @@
 import { FC } from 'react'
+import { Box } from '@mui/material'
 
 const Login: FC = () => {
-  return (
-    <div>
-      Log in form
-    </div>
-  )
+  return <Box>Log in form</Box>
 }
 
 export default Login

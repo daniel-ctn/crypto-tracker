@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { CryptoState } from 'context/cryptoContext'
+import { CryptoContextState } from 'context/cryptoContext'
 
 import Banner from 'components/section/Banner'
 import CoinTable from 'components/section/CoinTable'
 
 const HomePage: FC = () => {
-  const { currency } = CryptoState()
+  const { currency } = CryptoContextState()
 
   return (
     <div>

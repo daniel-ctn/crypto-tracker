@@ -16,6 +16,8 @@ const ThemeCtx = createContext<ThemeContextInterface>(initialContextValue)
 export const ThemeContext: FC = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(initialContextValue.theme)
 
+  console.log({theme})
+
   return (
     <ThemeCtx.Provider value={{ theme, setTheme }}>
       {children}
@@ -23,4 +25,4 @@ export const ThemeContext: FC = ({ children }) => {
   )
 }
 
-export const ThemeState = () => useContext(ThemeCtx)
+export const ThemeContextState = () => useContext(ThemeCtx)

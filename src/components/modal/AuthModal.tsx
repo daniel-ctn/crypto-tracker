@@ -40,7 +40,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -73,10 +73,10 @@ const AuthModal: FC<AuthModalProps> = ({ open, handleClose }) => {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            <Login/>
+            <Login />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <SignUp/>
+            <SignUp />
           </TabPanel>
         </Box>
       </Fade>

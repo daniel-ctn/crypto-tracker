@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import { Box, Button, LinearProgress } from '@mui/material'
-import { useHistoricalCoin } from 'config/queries'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,7 +12,8 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { format } from 'date-fns'
-import { ThemeState } from '../../context/themeContext'
+import { useHistoricalCoin } from 'config/queries'
+import { ThemeContextState } from 'context/themeContext'
 
 interface CoinInfoProps {
   id?: string
@@ -27,7 +27,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 )
 
 const options = {
@@ -45,12 +45,21 @@ const options = {
 
 const CoinInfo: FC<CoinInfoProps> = ({ id, currency }) => {
   const [day, setDay] = useState(365)
-  const {theme} = ThemeState()
+  const { theme } = ThemeContextState()
   const { data, isFetching } = useHistoricalCoin(id, day, currency)
 
   return (
-    <Box display='flex' flexDirection='column' alignItems='center' justifyContent='center' mt={4} p={4}>
-      {isFetching ? <LinearProgress /> : (
+    <Box
+      display='flex'
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      mt={4}
+      p={4}
+    >
+      {isFetching ? (
+        <LinearProgress />
+      ) : (
         <>
           <Line
             options={options}
@@ -59,17 +68,41 @@ const CoinInfo: FC<CoinInfoProps> = ({ id, currency }) => {
               datasets: [
                 {
                   data: data?.prices?.map(coin => coin[1]),
-                  label: `Price ( Past ${day} Days ) in ${currency}`,
+                  label: `Price ( Past ${day} Days ) in ${currency.toUpperCase()}`,
                   borderColor: theme.palette.primary.main,
                 },
               ],
             }}
           />
           <Box display='flex' gap={4} mt={2}>
-            <Button sx={{px: 4}} variant="outlined" onClick={() => setDay(30)}>30 Days</Button>
-            <Button sx={{px: 4}} variant="outlined" onClick={() => setDay(60)}>60 Days</Button>
-            <Button sx={{px: 4}} variant="outlined" onClick={() => setDay(90)}>90 Days</Button>
-            <Button sx={{px: 4}} variant="outlined" onClick={() => setDay(365)}>365 Days</Button>
+            <Button
+              sx={{ px: 4 }}
+              variant='outlined'
+              onClick={() => setDay(30)}
+            >
+              30 Days
+            </Button>
+            <Button
+              sx={{ px: 4 }}
+              variant='outlined'
+              onClick={() => setDay(60)}
+            >
+              60 Days
+            </Button>
+            <Button
+              sx={{ px: 4 }}
+              variant='outlined'
+              onClick={() => setDay(90)}
+            >
+              90 Days
+            </Button>
+            <Button
+              sx={{ px: 4 }}
+              variant='outlined'
+              onClick={() => setDay(365)}
+            >
+              365 Days
+            </Button>
           </Box>
         </>
       )}
